@@ -1,5 +1,7 @@
 package com.abc.learning.controller;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -44,9 +46,22 @@ public class StudentController {
 //		Update Record
 
 //		Delete Record
-		int id = 2;
-		System.out.println(StudentDao.deleteStudent(factory, id));
+//		int id = 2;
+//		System.out.println(StudentDao.deleteStudent(factory, id));
 //		Delete Record
+		
+//		Read list of records by query
+		String query = "FROM Student";
+		List<Student> list = StudentDao.getStudentListByQuery(factory, query);
+		if(list.isEmpty()) {
+			System.out.println("No records found");
+		}else {
+			for(Student student : list) {
+				System.out.println(student.toString());
+			}
+		}
+//		Read list of records by query
+		
 		factory.close();
 	}
 }

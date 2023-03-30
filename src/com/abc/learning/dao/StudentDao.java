@@ -1,5 +1,8 @@
 package com.abc.learning.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -87,6 +90,22 @@ public class StudentDao {
 			return student;
 			
 		}  catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			session.close();
+		}
+	}
+	
+	public static List<Student> getStudentListByQuery(SessionFactory factory,String query){
+		Session session = factory.getCurrentSession();
+		List<Student> list = new ArrayList<>();
+		try {
+			session.beginTransaction();
+			list = session.createQuery(query, Student.class).getResultList();
+			session.getTransaction().commit();
+			return list;
+		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {
